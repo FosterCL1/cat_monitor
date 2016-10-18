@@ -51,22 +51,22 @@ def create_ceps(fn):
     ceps, mspec, spec = mfcc(X)
     write_ceps(ceps, fn)
 
-def read_ceps(genre_list, base_dir=MEOW_DIR, train_dir="Training"):
+# Pass in a list of the positive and negative directoies here
+def read_ceps(folder_list):
     X = []
     y = []
-    for label, genre in enumerate(genre_list):
-        print label
-        meow_dir = os.path.join(base_dir, genre, train_dir, "*.ceps.npy")
+    for label, genre in enumerate(folder_list):
+        meow_dir = os.path.join(genre, "*.ceps.npy")
         print meow_dir
-        for fn in glob.glob(meow_dir):
-            print fn
+        file_list = glob.glob(meow_dir)
+        for fn in file_list:
             ceps = np.load(fn)
             num_ceps = len(ceps)
             if not np.isnan(np.sum(ceps)):
                 X.append(np.mean(ceps[int(num_ceps * 1 / 10): int(num_ceps * 9 / 10)], axis = 0))
                 y.append(label)
             else:
-                print "NaN detected in file:"
+                print "NaN detected in file:", fn
     print np.array(X)
     print np.array(y)
     return np.array(X), np.array(y)
