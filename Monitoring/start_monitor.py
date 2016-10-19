@@ -74,6 +74,7 @@ def record():
         
 	if not prepend_done:
 	    prepend_samples += 1
+            num_samples_taken += 1
 	    #print("Recorded time = %f" % recorded_time)
             recorded_time += float(CHUNK_SIZE) / float(RATE)
         
@@ -83,7 +84,7 @@ def record():
 
 	if snd_started and prepend_done:
 	    num_samples_taken += 1
-	    if num_samples_taken > ((RECORD_SECONDS - recorded_time) * RATE / CHUNK_SIZE):
+	    if num_samples_taken > (RECORD_SECONDS * RATE / CHUNK_SIZE):
 		break;
 	
         if not snd_started:

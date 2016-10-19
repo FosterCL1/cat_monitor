@@ -73,7 +73,12 @@ def record_random():
 	snd_data = np.random.random(CHUNK_SIZE)
 	audio_data = snd_data * ii16.max
         r.extend(audio_data)
-        
+        num_samples_taken += 1
+
+	if num_samples_taken > (RECORD_SECONDS * RATE / CHUNK_SIZE):
+	    break;
+
+        '''
 	if not prepend_done:
 	    prepend_samples += 1
 	    #print("Recorded time = %f" % recorded_time)
@@ -92,6 +97,7 @@ def record_random():
 	    if not is_silent(audio_data):
                 print("Starting recording")
                 snd_started = True
+        '''
 
     sample_width = p.get_sample_size(FORMAT)
     stream.stop_stream()
