@@ -105,8 +105,8 @@ def main(argv):
     print score
 
     # If desired, this can be used to test alternate cross validation sets
-    #scores = cross_validation.cross_val_score(clf, X, y, cv=5)
-    #print scores
+    scores = cross_validation.cross_val_score(clf, X, y, cv=5)
+    print scores
 
     print "Writing output to ", output_file
     with open(output_file, 'w') as f:

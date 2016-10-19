@@ -52,6 +52,29 @@ def create_ceps(fn):
     write_ceps(ceps, fn)
 
 # Pass in a list of the positive and negative directoies here
+def blind_read_ceps(base_dir):
+    X = []
+    file_names = []
+    meow_dir = os.path.join(base_dir, "*.ceps.npy")
+    print meow_dir
+    file_list = glob.glob(meow_dir)
+    file_number = 0
+    for fn in file_list:
+        print file_number
+        file_number += 1
+        ceps = np.load(fn)
+        num_ceps = len(ceps)
+        if not np.isnan(np.sum(ceps)):
+            #print "Reading file:", fn
+            X.append(np.mean(ceps[int(num_ceps * 1 / 10): int(num_ceps * 9 / 10)], axis = 0))
+            file_names.append(fn)
+        else:
+            print "NaN detected in file:", fn
+    print "Done with the files"
+    return np.array(X), file_names
+
+
+# Pass in a list of the positive and negative directoies here
 def read_ceps(folder_list):
     X = []
     y = []
