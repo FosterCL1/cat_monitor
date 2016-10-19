@@ -74,10 +74,11 @@ def main(argv):
     # Read the FFT data
     meow_list = [positive_training_directory, negative_training_directory]
     if InputMethod == "FFT":
+        print "Using FFT Training"
         X, y = read_training_ffts(8000, meow_list)
     elif InputMethod == "MEL":
-        print "Read MelFCCs here"
-        MakeMFCC.read_ceps(meow_list)
+        print "Using MFCC Training"
+        X, y = MakeMFCC.read_ceps(meow_list)
     else:
         print "No valid input method"
         sys.exit()
